@@ -18,7 +18,6 @@ db = SQL("sqlite:///clienti.db")
 
 @app.after_request
 def after_request(response):
-    """Ensure responses aren't cached"""
     response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
     response.headers["Expires"] = 0
     response.headers["Pragma"] = "no-cache"
@@ -27,13 +26,7 @@ def after_request(response):
 
 
 def apology(message, code=400):
-    """Render message as an apology to user."""
     def escape(s):
-        """
-        Escape special characters.
-
-        https://github.com/jacebrowning/memegen#special-characters
-        """
         for old, new in [("-", "--"), (" ", "-"), ("_", "__"), ("?", "~q"),
                          ("%", "~p"), ("#", "~h"), ("/", "~s"), ("\"", "''")]:
             s = s.replace(old, new)
