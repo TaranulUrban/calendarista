@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Adauga servicii
+{% endblock %}
+
+{% block main %}
+    <form action="/servicii" method="post">
+        <div class="mb-3">
+              <select name="categorie">
+                <option disabled selected>Categorie</option>
+                    {% for categorie in categorii %}
+                        <option value="{{ categorie.nume_categorie }}">{{ categorie.nume_categorie }}</option>
+                    {% endfor%}
+            </select>
+        </div>
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="serviciu" placeholder="Serviciu" type="text">
+        </div>
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="durata" placeholder="Durata (minute)" type="number" min = 1>
+        </div>
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="pret" placeholder="Pret" type="number">
+        </div>
+        <button class="btn btn-primary" type="submit">Adauga</button>
+    </form>
+{% endblock %}

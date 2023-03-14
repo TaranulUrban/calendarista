@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Catalog
+{% endblock %}
+
+{% block main %}
+
+<div>
+    <nav class="bg-light navbar navbar-expand-md navbar-light" style="background-color: #e3f2fd;">
+        <ul class="navbar-nav me-auto mt-2">
+            <li class="nav-item"><a href="/categorie"><button class="btn btn-outline-dark">Adauga categorie noua</button></a></li>
+            <li class="nav-item"><a href="/servicii"><button class="btn btn-outline-dark">Adauga serviciu nou</button></a></li>
+            <li class="nav-item"><a href="/servicii"><button class="btn btn-outline-dark">Modifica serviciu</button></a></li>
+        </ul>
+    </nav>
+</div>
+
+<br>
+
+<div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Categorie</th>
+                <th>Serviciu</th>
+                <th>Durata</th>
+                <th>Pret</th>
+            </tr>
+        </thead>
+       <tbody>
+            {% for serviciu in catalog %}
+                <tr>
+                    <td>{{ serviciu.categorie }}</td>
+                    <td>{{ serviciu.serviciu }}</td>
+                    <td>{{ serviciu.durata }}</td>
+                    <td>{{ serviciu.pret }}</td>
+                </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+
+
+</div>
+
+
+
+
+
+
+
+{% endblock %}

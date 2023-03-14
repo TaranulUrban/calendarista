@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nume Client</th>
+            <th>Numar de telefon</th>
+            <th>Adresa de mail</th>
+            <th>Sex</th>
+            <th>Creat</th>
+        </tr>
+    </thead>
+   <tbody>
+        {% for item in items %}
+            {% if item.total_shares > 0 %}
+            <tr>
+                <td>{{ item.symbol }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.total_shares }}</td>
+                <td>{{ item.price }}</td>
+                <td>{{ item.price * item.total_shares }}</td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+
+    </tbody>
+</table>
+
+
+
+
+
+{% endblock %}

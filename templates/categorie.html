@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Adauga categorie
+{% endblock %}
+
+{% block main %}
+    <form action="/categorie" method="post">
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="categorie" placeholder="Categorie" type="text">
+        </div>
+        <button class="btn btn-primary" type="submit">Adauga</button>
+    </form>
+{% endblock %}
