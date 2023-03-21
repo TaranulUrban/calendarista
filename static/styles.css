@@ -5,13 +5,16 @@ nav .navbar-brand
 }
 
 /* Colors for brand */
-nav .navbar-brand .blue
+nav .navbar-brand .gradientCalendarista
 {
-    color: #537fbe;
+    background: #121FCF;
+    background: linear-gradient(to right, #121FCF 0%, #CF1512 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 nav .navbar-brand .red
 {
-    color: #ea433b;
+    color: #CF1512;
 }
 nav .navbar-brand .yellow
 {

@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Sterge_client
+{% endblock %}
+
+{% block main %}
+    <div>
+        <nav class="bg-light navbar navbar-expand-md navbar-light" style="background-color: #e3f2fd;">
+            <ul class="navbar-nav me-auto mt-2">
+                <li class="nav-item"><a href="/clienti"><button class="btn btn-primary">Back</button></a></li>
+            </ul>
+        </nav>
+    </div>
+    <br>
+    <form action="/sterge_client" method="post">
+        <div class="mb-3">
+            <select name = id_client class="form-select mx-auto w-auto" aria-label="Default select example">
+                <option disabled selected>Selecteaza client</option>
+                    {% for client in clients %}
+                        <option value="{{ client.id }}">{{ client.nume }}  ||  {{ client.telefon }}  ||  {{ client.mail }}</option>
+                    {% endfor%}
+            </select>
+        </div>
+        <button class="btn btn-primary" type="submit">Sterge</button>
+    </form>
+
+{% endblock %}

@@ -7,11 +7,12 @@
 {% block main %}
 
 <div>
-    <nav class="bg-light navbar navbar-expand-md navbar-light" style="background-color: #e3f2fd;">
+    <nav action="/catalog" class="bg-light navbar navbar-expand-md navbar-light" style="background-color: #e3f2fd;" method="post">
         <ul class="navbar-nav me-auto mt-2">
             <li class="nav-item"><a href="/categorie"><button class="btn btn-outline-dark">Adauga categorie noua</button></a></li>
             <li class="nav-item"><a href="/servicii"><button class="btn btn-outline-dark">Adauga serviciu nou</button></a></li>
             <li class="nav-item"><a href="/servicii"><button class="btn btn-outline-dark">Modifica serviciu</button></a></li>
+            <li class="nav-item"><a href="/sterge_serviciu"><button class="btn btn-outline-dark">Sterge serviciu</button></a></li>
         </ul>
     </nav>
 </div>
@@ -19,7 +20,7 @@
 <br>
 
 <div>
-    <table class="table table-striped">
+    <table action="/catalog" class="table table-striped">
         <thead>
             <tr>
                 <th>Categorie</th>
@@ -33,8 +34,8 @@
                 <tr>
                     <td>{{ serviciu.categorie }}</td>
                     <td>{{ serviciu.serviciu }}</td>
-                    <td>{{ serviciu.durata }}</td>
-                    <td>{{ serviciu.pret }}</td>
+                    <td>{{ serviciu.durata }} min</td>
+                    <td>{{ serviciu.pret }} RON</td>
                 </tr>
             {% endfor %}
 

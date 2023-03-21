@@ -1,3 +1,4 @@
+
 from flask import Flask, redirect, render_template, request, session
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -18,6 +19,7 @@ db = SQL("sqlite:///clienti.db")
 
 @app.after_request
 def after_request(response):
+    """Ensure responses aren't cached"""
     response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
     response.headers["Expires"] = 0
     response.headers["Pragma"] = "no-cache"
@@ -26,7 +28,13 @@ def after_request(response):
 
 
 def apology(message, code=400):
+    """Render message as an apology to user."""
     def escape(s):
+        """
+        Escape special characters.
+
+        https://github.com/jacebrowning/memegen#special-characters
+        """
         for old, new in [("-", "--"), (" ", "-"), ("_", "__"), ("?", "~q"),
                          ("%", "~p"), ("#", "~h"), ("/", "~s"), ("\"", "''")]:
             s = s.replace(old, new)
@@ -49,7 +57,7 @@ def login_required(f):
 @login_required
 def index():
     user_id = session["user_id"]
-    return render_template("/index.html",)
+    return render_template("/index.html")
 
 
 
@@ -173,3 +181,95 @@ def categorie():
         db.execute("INSERT INTO categorii(nume_categorie) VALUES (?)", categorie)
 
         return redirect("/catalog")
+
+
+
+@app.route("/clienti", methods=["GET"])
+@login_required
+def clienti():
+    if request.method == "GET":
+        user_id = session["user_id"]
+        clients = db.execute("SELECT * FROM clienti WHERE user_id = ?", user_id)
+        return render_template("/clienti.html", clients=clients)
+
+
+@app.route("/adauga_client", methods=["GET","POST"])
+@login_required
+def adauga_clienti():
+    user_id = session["user_id"]
+
+    if request.method == "GET":
+        return render_template("adauga_client.html")
+
+    if request.method == "POST":
+        nume = request.form.get("nume")
+        telefon = int(request.form.get("telefon"))
+        mail = request.form.get("mail")
+        sex = request.form.get("sex")
+        observatii = request.form.get("observatii")
+
+        db.execute("INSERT INTO clienti(user_id, nume, telefon, mail, sex, observatii) VALUES (?,?,?,?,?,?)", user_id, nume, telefon, mail, sex, observatii)
+
+        return redirect("/clienti")
+
+@app.route("/sterge_client", methods=["GET","POST"])
+@login_required
+def sterge_client():
+    user_id = session["user_id"]
+    clients = db.execute("SELECT * FROM clienti WHERE user_id = ?", user_id)
+
+    if request.method == "GET":
+        return render_template("sterge_client.html", clients=clients)
+
+    if request.method == "POST":
+        id_client = request.form.get("id_client")
+        db.execute("DELETE FROM clienti WHERE id=? AND user_id=?", id_client, user_id)
+        return redirect("/clienti")
+
+
+@app.route("/sterge_serviciu", methods=["GET","POST"])
+@login_required
+def sterge_serviciu():
+    user_id = session["user_id"]
+    servicii = db.execute("SELECT * FROM servicii WHERE user_id = ? ORDER BY categorie ASC;", user_id)
+
+    if request.method == "GET":
+        return render_template("sterge_serviciu.html", servicii=servicii)
+
+    if request.method == "POST":
+        id_serviciu = request.form.get("id_serviciu")
+        db.execute("DELETE FROM servicii WHERE id=? AND user_id=?", id_serviciu, user_id)
+        return redirect("/catalog")
+
+
+
+@app.route("/setari", methods=["GET","POST"])
+@login_required
+def setari():
+    user_id = session["user_id"]
+    rows = db.execute("SELECT * FROM users WHERE id = ?", user_id)
+
+    if request.method == "GET":
+        return render_template("setari.html")
+
+    if request.method == "POST":
+        password = request.form.get("password")
+        newPassword = request.form.get("newPassword")
+        checkPassword = request.form.get("checkPassword")
+
+        if newPassword != checkPassword:
+            return apology("the new password does not match the check password", 403)
+
+        if not check_password_hash(rows[0]["hash"], password):
+            return apology("wrong password", 403)
+
+        db.execute("UPDATE users SET hash = ? WHERE id = ?", generate_password_hash(newPassword), user_id)
+
+        return redirect("/")
+
+
+
+
+
+
+

@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Sterge serviciu
+{% endblock %}
+
+{% block main %}
+    <div>
+        <nav class="bg-light navbar navbar-expand-md navbar-light" style="background-color: #e3f2fd;">
+            <ul class="navbar-nav me-auto mt-2">
+                <li class="nav-item"><a href="/catalog"><button class="btn btn-primary">Back</button></a></li>
+            </ul>
+        </nav>
+    </div>
+    <br>
+    <form action="/sterge_serviciu" method="post">
+        <div class="mb-3">
+            <select name = id_serviciu class="form-select mx-auto w-auto" aria-label="Default select example">
+                <option disabled selected>Selecteaza serviciu</option>
+                    {% for serviciu in servicii %}
+                        <option value="{{ serviciu.id }}">{{ serviciu.categorie }}  ||  {{ serviciu.serviciu }}</option>
+                    {% endfor%}
+            </select>
+        </div>
+        <button class="btn btn-primary" type="submit">Sterge</button>
+    </form>
+
+{% endblock %}

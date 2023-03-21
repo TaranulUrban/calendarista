@@ -5,9 +5,18 @@
 {% endblock %}
 
 {% block main %}
+    <div>
+        <nav class="bg-light navbar navbar-expand-md navbar-light" style="background-color: #e3f2fd;">
+            <ul class="navbar-nav me-auto mt-2">
+                <li class="nav-item"><a href="/catalog"><button class="btn btn-primary">Back</button></a></li>
+                <li class="nav-item"><a href="/categorie"><button class="btn btn-outline-dark">Adauga Categorie</button></a></li>
+            </ul>
+        </nav>
+    </div>
+    <br>
     <form action="/servicii" method="post">
         <div class="mb-3">
-              <select name="categorie">
+            <select name="categorie" class="form-select mx-auto w-auto" aria-label="Default select example">
                 <option disabled selected>Categorie</option>
                     {% for categorie in categorii %}
                         <option value="{{ categorie.nume_categorie }}">{{ categorie.nume_categorie }}</option>

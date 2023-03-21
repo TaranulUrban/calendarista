@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Adauga clienti
+{% endblock %}
+
+{% block main %}
+    <div>
+        <nav class="bg-light navbar navbar-expand-md navbar-light" style="background-color: #e3f2fd;">
+            <ul class="navbar-nav me-auto mt-2">
+                <li class="nav-item"><a href="/clienti"><button class="btn btn-primary">Back</button></a></li>
+            </ul>
+        </nav>
+    </div>
+    <br>
+    <div>
+        <form action="/adauga_client" method="post">
+            <div class="mb-3">
+                <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="nume" placeholder="Nume Client" type="text">
+            </div>
+            <div class="mb-3">
+                <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="telefon" placeholder="Telefon" type="number" min = 1>
+            </div>
+            <div class="mb-3">
+                <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="mail" placeholder="Adresa de mail" type="text">
+            </div>
+            <div class="mb-3">
+                <select name = sex class="form-select mx-auto w-auto" aria-label="Default select example">
+                    <option disabled selected>Sex</option>
+                        <option value="Feminin">Feminin</option>
+                        <option value="Maculin">Masculin</option>
+                        <option value="Nu se identifica">Nu se identifica </option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="observatii" placeholder="observatii" type="text">
+            </div>
+            <button class="btn btn-primary" type="submit">Adauga</button>
+        </form>
+    </div>
+{% endblock %}
