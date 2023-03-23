@@ -1,13 +1,13 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Catalog
+    Programari
 {% endblock %}
 
 {% block main %}
 
 <div>
-    <nav action="/catalog" class="bg-light navbar navbar-expand-md navbar-light" style="background-color: #e3f2fd;" method="post">
+    <nav action="/programari" class="bg-light navbar navbar-expand-md navbar-light" style="background-color: #e3f2fd;" method="post">
         <ul class="navbar-nav me-auto mt-2">
             <li class="nav-item"><a href="/categorie"><button class="btn btn-outline-dark">Adauga categorie noua</button></a></li>
             <li class="nav-item"><a href="/servicii"><button class="btn btn-outline-dark">Adauga serviciu nou</button></a></li>
@@ -20,7 +20,7 @@
 <br>
 
 <div>
-    <table action="/catalog" class="table table-hover">
+    <table action="/programari" class="table table-hover">
         <thead>
             <tr>
                 <th>Categorie</th>

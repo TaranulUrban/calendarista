@@ -1,4 +1,4 @@
-
+import shutil
 from flask import Flask, redirect, render_template, request, session
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -97,21 +97,28 @@ def register():
         return render_template("register.html")
 
     if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+        confirmation = request.form.get("confirmation")
 
-        if not request.form.get("username"):
+        if not username:
             return apology("must provide username")
-        if not request.form.get("password"):
+        if not password:
             return apology("must provide a password")
-        if not request.form.get("confirmation"):
+        if not confirmation:
             return apology("must confirm the password")
 
-        if request.form.get("password") != request.form.get("confirmation"):
+        if password != confirmation:
             return apology("the password does not match the confirmation")
 
-        hash = generate_password_hash(request.form.get("password"))
+
+
+        hash = generate_password_hash(password)
+        c = str(hash) + username
+        code = generate_password_hash(c)
 
         try:
-            db.execute("INSERT INTO users (username, hash) VALUES(?, ?)", request.form.get("username"), hash)
+            db.execute("INSERT INTO users (username, hash, code) VALUES(?, ?, ?)", username, hash, code)
             return redirect("/")
         except:
             return apology("username alredy exists")
@@ -268,8 +275,75 @@ def setari():
         return redirect("/")
 
 
+@app.route("/profilOnline", methods=["GET","POST"])
+@login_required
+def profilOnline():
+    user_id = session["user_id"]
+    user = db.execute("SELECT * FROM users WHERE id = ?", user_id)
+
+    if request.method == "GET":
+        return render_template("profilOnline.html")
+
+    if request.method == "POST":
+        username = user[0]["hash"]
+        sum = 0
+        for c in username:
+            sum += ord(c)
+
+        link = user[0]["username"] + "_" + str(sum) + ".html"
+        linkClient = user[0]["username"] + "_" + str(sum)
+
+        file_html = open(link,"w")
+
+        file_html.write(
+        '''{% extends "layout.html" %}
+
+            {% block title %}
+                Adauga categorie
+            {% endblock %}
+
+            {% block main %}
+
+            TEXT AICI!
+
+
+
+            {% endblock %}''' )
+
+        file_html.close()
+        path = "profile_online/" + link
+        shutil.move(link, path)
+        extendedLink = "www.calenadrista.ro/"+linkClient
+        textFelicitari = "Felicitari! Acesta este link-ul catre pagina ta de programari online."
+
+        return render_template("profilOnline.html", link=extendedLink, textFelicitari=textFelicitari)
 
 
 
 
 
+@app.route("/calendar", methods=["GET","POST"])
+@login_required
+def calendar():
+
+    if request.method == "GET":
+        return render_template("calendar.html")
+
+    if request.method == "POST":
+        return render_template("calendar.html")
+
+
+
+
+@app.route("/programari", methods=["GET", "POST"])
+@login_required
+
+def programari():
+    user_id = session["user_id"]
+    catalog = db.execute("SELECT categorie, serviciu, durata, pret FROM servicii WHERE user_id = ?", user_id)
+
+    if request.method == "GET":
+        return render_template("programari.html", catalog=catalog)
+
+    if request.method == "POST":
+        return render_template("programari.html", catalog=catalog)

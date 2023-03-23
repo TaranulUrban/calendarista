@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Profil online
+{% endblock %}
+
+{% block main %}
+
+    <div class="card text-center">
+        <div class="card-header">
+            Link catre pagina de programari online.
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{ link }}</h5>
+            <p class="card-text">{{ textFelicitari }}</p>
+
+            <form action="/profilOnline" method="post">
+                <button class="btn btn-primary" type="submit">Genereaza link</button>
+            </form>
+        </div>
+        <div class="card-footer text-muted">
+            <p>
+                Pentru suport, ne puteti contacta prin:
+            </p>
+            <p>
+                Email: <a href = "mailto: olivier.borsan@outlook.com">olivier.borsan@outlook.com</a>
+            </p>
+            <p>
+                Telefon: <a href="tel:0745548899">0745548899</a>
+            </p>
+        </div>
+    </div>
+
+
+
+
+{% endblock %}

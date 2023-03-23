@@ -13,8 +13,7 @@
 
         <!-- https://favicon.io/emoji-favicons/spiral-calendar/ -->
         <link href="/static/favicon-32x32.png" rel="icon">
-
-        <link href="/static/styles.css" rel="stylesheet">
+        <link href="/static/styles.css" rel="stylesheet" type="text/css">
 
         <title>Calendarista: {% block title %}{% endblock %}</title>
 
@@ -31,13 +30,13 @@
                 <div class="collapse navbar-collapse" id="navbar">
                     {% if session["user_id"] %}
                         <ul class="navbar-nav me-auto mt-2">
-                            <li class="nav-item"><a class="nav-link" href="/calendar">Calendar</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/programari">Programari</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/clienti">Clienti</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/catalog">Catalog Servicii</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/profil">Profil Online</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/setari">Setari</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/asistenta">Asistenta</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/calendar">&#x1F4C6; Calendar</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/programari">&#9200; Programari</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/clienti">&#x1F465; Clienti</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/catalog">&#128450; Catalog Servicii</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/profilOnline">&#128640; Profil Online</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/setari">&#x2699; Setari</a></li>
+                            <!-- <li class="nav-item"><a class="nav-link" href="/asistenta">Asistenta</a></li> -->
                         </ul>
                         <ul class="navbar-nav ms-auto mt-2">
                             <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>

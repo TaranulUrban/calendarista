@@ -24,3 +24,34 @@ nav .navbar-brand .green
 {
     color: #2e944b;
 }
+
+
+.calendar {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+table {
+    width: 100%;
+}
+
+td {
+    padding: 10px;
+}
+
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    text-decoration: underline;
+}
